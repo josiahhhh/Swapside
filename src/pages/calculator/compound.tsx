@@ -3,7 +3,7 @@ import ResultChart from "@/components/Compound/Result";
 import Layout from "@/components/Global/Layout";
 import { Meta } from "@/components/Global/Meta";
 import { calculateCompoundInterest } from "@/utils/compound";
-import { Box, Container, createStyles, Text, Title } from "@mantine/core";
+import { Container, createStyles, Text, Title } from "@mantine/core";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { Result, Strategy } from "typings/typings";
@@ -44,12 +44,12 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const defaultStrategy: Strategy = {
-  initialDeposit: 11, // in cents
-  regularDeposit: 2000, // in cents
-  depositFrequency: "Annually",
-  compoundFrequency: "Annually",
-  numberOfYears: 10,
-  annualInterestRate: 500,
+  startingBalance: 11, // in cents
+  monthlyContribution: 2000, // in cents
+  depositFrequency: "Monthly",
+  compoundFrequency: "Monthly",
+  numberOfMonths: 5,
+  returnRate: 10,
 };
 
 const CompoundInterest: NextPage = () => {
@@ -85,7 +85,10 @@ const CompoundInterest: NextPage = () => {
           <Form handleSubmit={handleSubmit} strategy={strategy} />
         </div>
         <div>
-          <ResultChart data={result} initialDeposit={strategy.initialDeposit} />
+          <ResultChart
+            data={result}
+            initialDeposit={strategy.startingBalance}
+          />
         </div>
       </Container>
     </Layout>

@@ -99,20 +99,15 @@ export interface StockFinance {
   finalLink: string;
 }
 
-export type Frequency =
-  | "Annually"
-  | "Monthly"
-  | "Fortnightly"
-  | "Weekly"
-  | "Daily";
+export type Frequency = "Monthly";
 
 export interface Strategy {
-  initialDeposit: number;
-  regularDeposit: number;
+  startingBalance: number;
+  monthlyContribution: number;
   depositFrequency: Frequency;
   compoundFrequency: Frequency;
-  numberOfYears: number;
-  annualInterestRate: number;
+  numberOfMonths: number;
+  returnRate: number;
 }
 
 export interface YearResult {

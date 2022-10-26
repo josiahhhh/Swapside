@@ -1,6 +1,6 @@
-import { Strategy, Frequency } from "typings/typings";
 import { Box, Button, NativeSelect, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { Frequency, Strategy } from "typings/typings";
 
 interface Props {
   handleSubmit: any;
@@ -8,31 +8,24 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
-  const frequency: Array<Frequency> = [
-    "Annually",
-    "Monthly",
-    "Fortnightly",
-    "Weekly",
-    "Daily",
-  ];
+  const frequency: Array<Frequency> = ["Monthly"];
   const depositFrequency = frequency;
-  const compoundFrequency = depositFrequency.slice(0, 2); // ["Annually", "Monthly"]
 
   const form = useForm({
     initialValues: {
-      initialDeposit: "",
-      regularDeposit: "",
-      numberOfYears: "",
-      annualInterestRate: "",
+      startingBalance: "",
+      monthlyContribution: "",
       depositFrequency: "",
       compoundFrequency: "",
+      numberOfMonths: "",
+      returnRate: "",
     },
 
     validate: {
-      initialDeposit: (value) => (Number(value) ? null : "Invalid number"),
-      regularDeposit: (value) => (Number(value) ? null : "Invalid number"),
-      numberOfYears: (value) => (Number(value) ? null : "Invalid number"),
-      annualInterestRate: (value) => (Number(value) ? null : "Invalid number"),
+      startingBalance: (value) => (Number(value) ? null : "Invalid number"),
+      monthlyContribution: (value) => (Number(value) ? null : "Invalid number"),
+      numberOfMonths: (value) => (Number(value) ? null : "Invalid number"),
+      returnRate: (value) => (Number(value) ? null : "Invalid number"),
     },
   });
 
@@ -41,18 +34,18 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
           withAsterisk
-          label="Initial Deposit"
+          label="Starting Balance"
           onSubmit={handleSubmit}
-          value={(strategy.initialDeposit / 100).toFixed(2)}
-          {...form.getInputProps("initialDeposit")}
+          value={(strategy.startingBalance / 100).toFixed(2)}
+          {...form.getInputProps("startingBalance")}
         />
         <TextInput
           withAsterisk
           mt={"md"}
-          label="Regular Deposit"
+          label="Monthly Contribution"
           onSubmit={handleSubmit}
-          value={(strategy.regularDeposit / 100).toFixed(2)}
-          {...form.getInputProps("regularDeposit")}
+          value={(strategy.monthlyContribution / 100).toFixed(2)}
+          {...form.getInputProps("monthlyContribution")}
         />
         <NativeSelect
           mt={"md"}
@@ -65,7 +58,7 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
         />
         <NativeSelect
           mt={"md"}
-          data={compoundFrequency.map((d) => d)}
+          data={depositFrequency.map((d) => d)}
           placeholder="Pick one"
           label="Compound Frequency"
           variant="filled"
@@ -75,18 +68,18 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
         <TextInput
           withAsterisk
           mt={"md"}
-          label="Number of years"
+          label="Number of Months"
           onSubmit={handleSubmit}
-          value={strategy.numberOfYears}
-          {...form.getInputProps("numberOfYears")}
+          value={strategy.numberOfMonths}
+          {...form.getInputProps("numberOfMonths")}
         />
         <TextInput
           withAsterisk
           mt={"md"}
-          label="Annual interest rate"
+          label="Rate of Return (Monthly)"
           onSubmit={handleSubmit}
-          value={(strategy.annualInterestRate / 100).toFixed(2)}
-          {...form.getInputProps("annualInterestRate")}
+          value={(strategy.returnRate / 100).toFixed(2)}
+          {...form.getInputProps("returnRate")}
         />
         <Button mt={"md"} type="submit">
           Submit

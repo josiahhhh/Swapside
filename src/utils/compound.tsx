@@ -1,4 +1,4 @@
-import { Frequency, Strategy, Result } from "typings/typings";
+import { Frequency, Result, Strategy } from "typings/typings";
 /*
 Calculate Compound Interest
 
@@ -41,14 +41,14 @@ const frequencyPerYear = (frequency: Frequency): number => {
 
 export const calculateCompoundInterest = (strategy: Strategy) => {
   // Guard: Check number of years is more than 0
-  if (strategy.numberOfYears < 1) return;
+  if (strategy.numberOfMonths < 1) return;
 
   // Definitions
-  const initialDeposit = strategy.initialDeposit / 100;
-  const regularDeposit = strategy.regularDeposit / 100;
+  const initialDeposit = strategy.startingBalance / 100;
+  const regularDeposit = strategy.monthlyContribution / 100;
   const depositFrequency = strategy.depositFrequency;
   const compoundFrequency = strategy.compoundFrequency; // "Annually", "Monthly", ...
-  const annualInterestRate: number = strategy.annualInterestRate; // Annual interest rate
+  const annualInterestRate: number = strategy.returnRate; // Annual interest rate
 
   // Determine the interest rate per compound
   const rate = ratePerCompound(annualInterestRate, compoundFrequency) / 10000;
@@ -62,7 +62,7 @@ export const calculateCompoundInterest = (strategy: Strategy) => {
   let cumulativeDeposits: number = 0;
   let cumulativeInterest: number = 0;
 
-  for (let year: number = 0; year < strategy.numberOfYears; year++) {
+  for (let year: number = 0; year < strategy.numberOfMonths; year++) {
     // For each year
 
     for (

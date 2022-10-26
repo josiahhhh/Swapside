@@ -1,65 +1,25 @@
+import formatMoney from "@/utils/formatMoney";
+import { Paper } from "@mantine/core";
 import React from "react";
 import {
-  BarChart,
   Bar,
-  XAxis,
-  YAxis,
+  BarChart,
   CartesianGrid,
-  Tooltip,
   Legend,
   ResponsiveContainer,
-  TooltipProps,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
 import { Result } from "typings/typings";
-import formatMoney from "@/utils/formatMoney";
-import { Box, Card, Group, Paper, Text } from "@mantine/core";
 
 interface Props {
   data: Result;
   initialDeposit: number;
 }
 
-const CustomTooltip = ({
-  active,
-  payload,
-  label,
-}: TooltipProps<number, string>): any => {
-  if (active && payload && payload.length) {
-    const inital = Number(payload[0].value);
-    const deposits = Number(payload[1].value);
-    const interest = Number(payload[2].value);
-
-    const total = inital + deposits + interest;
-
-    return (
-      <Card shadow={"md"} p="lg" radius="md" withBorder>
-        <Group position="apart" mt="md" mb="xs">
-          <Text>🚀 &nbsp; Year {label}</Text>
-        </Group>
-        <Group position="apart" mt="md" mb="xs">
-          <Text>Initial</Text>
-          <Text>{formatMoney(inital)}</Text>
-        </Group>
-        <Group position="apart" mt="md" mb="xs">
-          <Text>Deposits</Text>
-          <Text>{formatMoney(deposits)}</Text>
-        </Group>
-        <Group position="apart" mt="md" mb="xs">
-          <Text>Interest</Text>
-          <Text>{formatMoney(interest)}</Text>
-        </Group>
-        <Group position="apart" mt="md" mb="xs">
-          <Text>Total</Text>
-          <Text>{formatMoney(total)}</Text>
-        </Group>
-      </Card>
-    );
-  } else {
-    return <>Nothing to render</>;
-  }
-};
-
 const ResultChart: React.FC<Props> = ({ data, initialDeposit }) => {
+  console.log(data);
   // Guard
 
   return (
@@ -77,13 +37,13 @@ const ResultChart: React.FC<Props> = ({ data, initialDeposit }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="yearNumber" />
+          <XAxis dataKey="monthNumber" />
           <YAxis tickFormatter={(value) => formatMoney(value)} />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip />
           <Legend verticalAlign="bottom" height={36} />
           <Bar
-            name="Initial deposit"
-            dataKey="initialDeposit"
+            name="Starting Balance"
+            dataKey="startingBalance"
             stackId="a"
             fill="#1c4d78"
           />
