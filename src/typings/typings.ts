@@ -99,7 +99,7 @@ export interface StockFinance {
   finalLink: string;
 }
 
-export type Frequency = "Monthly";
+export type Frequency = "Monthly" | "Daily";
 
 export interface Strategy {
   startingBalance: number;

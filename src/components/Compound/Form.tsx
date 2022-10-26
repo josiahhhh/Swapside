@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
-  const frequency: Array<Frequency> = ["Monthly"];
+  const frequency: Array<Frequency> = ["Monthly", "Daily"];
   const depositFrequency = frequency;
 
   const form = useForm({
