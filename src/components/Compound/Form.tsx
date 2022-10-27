@@ -42,7 +42,7 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <NumberInput
           withAsterisk
-          label="Initial Deposit"
+          label="Starting Balance"
           onSubmit={handleSubmit}
           variant="filled"
           value={strategy.initialDeposit}
@@ -51,7 +51,7 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
         <NumberInput
           withAsterisk
           mt={"md"}
-          label="Regular Deposit"
+          label="Regular Contribution"
           onSubmit={handleSubmit}
           variant="filled"
           value={strategy.regularDeposit}
@@ -60,7 +60,7 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
         <NumberInput
           withAsterisk
           mt={"md"}
-          label="Number of years"
+          label="Number of Months"
           onSubmit={handleSubmit}
           type="number"
           value={strategy.numberOfYears}
@@ -70,7 +70,7 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
         <NumberInput
           withAsterisk
           mt={"md"}
-          label="Annual interest rate"
+          label="Interest Rate"
           onSubmit={handleSubmit}
           variant="filled"
           value={strategy.annualInterestRate}
