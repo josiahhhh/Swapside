@@ -31,7 +31,6 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
 
     validate: {
       initialDeposit: (value) => (Number(value) ? null : "Invalid number"),
-      regularDeposit: (value) => (Number(value) ? null : "Invalid number"),
       numberOfYears: (value) => (Number(value) ? null : "Invalid number"),
       annualInterestRate: (value) => (Number(value) ? null : "Invalid number"),
     },
@@ -70,7 +69,7 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
         <NumberInput
           withAsterisk
           mt={"md"}
-          label="Rate of Return (Monthly)"
+          label="Rate of Return (Monthly)w"
           onSubmit={handleSubmit}
           variant="filled"
           value={strategy.annualInterestRate}
