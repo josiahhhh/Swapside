@@ -1,4 +1,4 @@
-import { Box, Button, NativeSelect, TextInput } from "@mantine/core";
+import { Box, Button, NativeSelect, NumberInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { Frequency, Strategy } from "typings/typings";
 
@@ -8,44 +8,54 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
-  const frequency: Array<Frequency> = ["Monthly", "Daily"];
+  const frequency: Array<Frequency> = [
+    "Annually",
+    "Monthly",
+    "Fortnightly",
+    "Weekly",
+    "Daily",
+  ];
+
   const depositFrequency = frequency;
+  const compoundFrequency = depositFrequency.slice(0, 2); // ["Annually", "Monthly"]
 
   const form = useForm({
     initialValues: {
-      startingBalance: "",
-      monthlyContribution: "",
-      depositFrequency: "",
-      compoundFrequency: "",
-      numberOfMonths: "",
-      returnRate: "",
+      initialDeposit: "",
+      regularDeposit: "",
+      numberOfYears: "",
+      annualInterestRate: "",
+      depositFrequency: "Annually",
+      compoundFrequency: "Annually",
     },
 
     validate: {
-      startingBalance: (value) => (Number(value) ? null : "Invalid number"),
-      monthlyContribution: (value) => (Number(value) ? null : "Invalid number"),
-      numberOfMonths: (value) => (Number(value) ? null : "Invalid number"),
-      returnRate: (value) => (Number(value) ? null : "Invalid number"),
+      initialDeposit: (value) => (Number(value) ? null : "Invalid number"),
+      regularDeposit: (value) => (Number(value) ? null : "Invalid number"),
+      numberOfYears: (value) => (Number(value) ? null : "Invalid number"),
+      annualInterestRate: (value) => (Number(value) ? null : "Invalid number"),
     },
   });
 
   return (
     <Box>
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput
+        <NumberInput
           withAsterisk
-          label="Starting Balance"
+          label="Initial Deposit"
           onSubmit={handleSubmit}
-          value={(strategy.startingBalance / 100).toFixed(2)}
-          {...form.getInputProps("startingBalance")}
+          variant="filled"
+          value={strategy.initialDeposit}
+          {...form.getInputProps("initialDeposit")}
         />
-        <TextInput
+        <NumberInput
           withAsterisk
           mt={"md"}
-          label="Monthly Contribution"
+          label="Regular Deposit"
           onSubmit={handleSubmit}
-          value={(strategy.monthlyContribution / 100).toFixed(2)}
-          {...form.getInputProps("monthlyContribution")}
+          variant="filled"
+          value={strategy.regularDeposit}
+          {...form.getInputProps("regularDeposit")}
         />
         <NativeSelect
           mt={"md"}
@@ -54,32 +64,37 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
           label="Deposit Frequency"
           variant="filled"
           withAsterisk
+          required
           {...form.getInputProps("depositFrequency")}
         />
         <NativeSelect
           mt={"md"}
-          data={depositFrequency.map((d) => d)}
+          data={compoundFrequency.map((d) => d)}
           placeholder="Pick one"
           label="Compound Frequency"
           variant="filled"
           withAsterisk
+          required
           {...form.getInputProps("compoundFrequency")}
         />
-        <TextInput
+        <NumberInput
           withAsterisk
           mt={"md"}
-          label="Number of Months"
+          label="Number of years"
           onSubmit={handleSubmit}
-          value={strategy.numberOfMonths}
-          {...form.getInputProps("numberOfMonths")}
+          type="number"
+          value={strategy.numberOfYears}
+          variant="filled"
+          {...form.getInputProps("numberOfYears")}
         />
-        <TextInput
+        <NumberInput
           withAsterisk
           mt={"md"}
-          label="Rate of Return (Monthly)"
+          label="Annual interest rate"
           onSubmit={handleSubmit}
-          value={(strategy.returnRate / 100).toFixed(2)}
-          {...form.getInputProps("returnRate")}
+          variant="filled"
+          value={strategy.annualInterestRate}
+          {...form.getInputProps("annualInterestRate")}
         />
         <Button mt={"md"} type="submit">
           Submit

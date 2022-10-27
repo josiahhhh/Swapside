@@ -99,15 +99,20 @@ export interface StockFinance {
   finalLink: string;
 }
 
-export type Frequency = "Monthly" | "Daily";
+export type Frequency =
+  | "Annually"
+  | "Monthly"
+  | "Fortnightly"
+  | "Weekly"
+  | "Daily";
 
 export interface Strategy {
-  startingBalance: number;
-  monthlyContribution: number;
+  initialDeposit: number;
+  regularDeposit: number;
   depositFrequency: Frequency;
   compoundFrequency: Frequency;
-  numberOfMonths: number;
-  returnRate: number;
+  numberOfYears: number;
+  annualInterestRate: number;
 }
 
 export interface YearResult {
@@ -119,17 +124,3 @@ export interface YearResult {
 }
 
 export type Result = Array<YearResult> | undefined;
-
-import NextAuth from "next-auth";
-
-declare module "next-auth" {
-  /**
-   * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
-   */
-  interface Session {
-    user: {
-      /** The user's postal address. */
-      email: string;
-    };
-  }
-}

@@ -1,5 +1,5 @@
 import formatMoney from "@/utils/formatMoney";
-import { Paper } from "@mantine/core";
+import { Box, Card, Group, Text } from "@mantine/core";
 import React from "react";
 import {
   Bar,
@@ -8,6 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
   Tooltip,
+  TooltipProps,
   XAxis,
   YAxis,
 } from "recharts";
@@ -18,12 +19,71 @@ interface Props {
   initialDeposit: number;
 }
 
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+}: TooltipProps<number, string>): any => {
+  if (active && payload && payload.length) {
+    const inital = Number(payload[0].value);
+    const deposits = Number(payload[1].value);
+    const interest = Number(payload[2].value);
+
+    const total = inital + deposits + interest;
+
+    return (
+      <Card shadow={"md"} p="lg" radius="md" withBorder>
+        <Group position="apart" mt="md" mb="xs">
+          <Text>🚀 &nbsp; Year {label}</Text>
+        </Group>
+        <Group position="apart" mt="md" mb="xs">
+          <Text>Initial</Text>
+          <Text>{formatMoney(inital)}</Text>
+        </Group>
+        <Group position="apart" mt="md" mb="xs">
+          <Text>Deposits</Text>
+          <Text>{formatMoney(deposits)}</Text>
+        </Group>
+        <Group position="apart" mt="md" mb="xs">
+          <Text>Interest</Text>
+          <Text>{formatMoney(interest)}</Text>
+        </Group>
+        <Group position="apart" mt="md" mb="xs">
+          <Text>Total</Text>
+          <Text>{formatMoney(total)}</Text>
+        </Group>
+      </Card>
+    );
+  } else {
+    return <>Nothing to render</>;
+  }
+};
+
 const ResultChart: React.FC<Props> = ({ data, initialDeposit }) => {
-  console.log(data);
   // Guard
 
   return (
-    <Paper mt={"lg"}>
+    <Box
+      sx={(theme) => ({
+        backgroundColor:
+          theme.colorScheme === "dark"
+            ? theme.colors.dark[6]
+            : theme.colors.gray[0],
+        textAlign: "center",
+        padding: theme.spacing.xl,
+        borderRadius: theme.radius.md,
+        cursor: "pointer",
+        marginTop: "20px",
+        marginBottom: "20px",
+
+        "&:hover": {
+          backgroundColor:
+            theme.colorScheme === "dark"
+              ? theme.colors.dark[5]
+              : theme.colors.gray[1],
+        },
+      })}
+    >
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
           width={500}
@@ -37,13 +97,13 @@ const ResultChart: React.FC<Props> = ({ data, initialDeposit }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="monthNumber" />
+          <XAxis dataKey="yearNumber" />
           <YAxis tickFormatter={(value) => formatMoney(value)} />
-          <Tooltip />
+          <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="bottom" height={36} />
           <Bar
-            name="Starting Balance"
-            dataKey="startingBalance"
+            name="Initial deposit"
+            dataKey="initialDeposit"
             stackId="a"
             fill="#1c4d78"
           />
@@ -61,7 +121,7 @@ const ResultChart: React.FC<Props> = ({ data, initialDeposit }) => {
           />
         </BarChart>
       </ResponsiveContainer>
-    </Paper>
+    </Box>
   );
 };
 
