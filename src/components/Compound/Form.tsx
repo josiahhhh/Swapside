@@ -51,7 +51,7 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
         <NumberInput
           withAsterisk
           mt={"md"}
-          label="Regular Contribution"
+          label="Monthly Contribution"
           onSubmit={handleSubmit}
           variant="filled"
           value={strategy.regularDeposit}
