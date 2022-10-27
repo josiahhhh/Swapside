@@ -70,7 +70,7 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
         <NumberInput
           withAsterisk
           mt={"md"}
-          label="Interest Rate"
+          label="Rate of Return (Monthly)"
           onSubmit={handleSubmit}
           variant="filled"
           value={strategy.annualInterestRate}
