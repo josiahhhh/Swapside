@@ -34,7 +34,7 @@ const CustomTooltip = ({
     return (
       <Card shadow={"md"} p="lg" radius="md" withBorder>
         <Group position="apart" mt="md" mb="xs">
-          <Text>🚀 &nbsp; Year {label}</Text>
+          <Text>🚀 &nbsp; Month {label}</Text>
         </Group>
         <Group position="apart" mt="md" mb="xs">
           <Text>Initial</Text>

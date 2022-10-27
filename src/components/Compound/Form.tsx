@@ -1,4 +1,4 @@
-import { Box, Button, NativeSelect, NumberInput } from "@mantine/core";
+import { Box, Button, NumberInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { Frequency, Strategy } from "typings/typings";
 
@@ -56,26 +56,6 @@ const Form: React.FC<Props> = ({ handleSubmit, strategy }) => {
           variant="filled"
           value={strategy.regularDeposit}
           {...form.getInputProps("regularDeposit")}
-        />
-        <NativeSelect
-          mt={"md"}
-          data={depositFrequency.map((d) => d)}
-          placeholder="Pick one"
-          label="Deposit Frequency"
-          variant="filled"
-          withAsterisk
-          required
-          {...form.getInputProps("depositFrequency")}
-        />
-        <NativeSelect
-          mt={"md"}
-          data={compoundFrequency.map((d) => d)}
-          placeholder="Pick one"
-          label="Compound Frequency"
-          variant="filled"
-          withAsterisk
-          required
-          {...form.getInputProps("compoundFrequency")}
         />
         <NumberInput
           withAsterisk

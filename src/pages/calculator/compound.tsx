@@ -59,8 +59,6 @@ const CompoundInterest: NextPage = () => {
   const [result, setResult] = useState<Result>();
 
   const handleSubmit = (data: any) => {
-    console.log(data);
-
     setStrategy({
       ...strategy,
       ...data,
