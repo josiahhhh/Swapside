@@ -151,34 +151,6 @@ const Exchange: NextPage = () => {
                   });
               })}
             >
-              <Group mb={"md"} position="center">
-                <Select
-                  style={{ marginTop: 20, zIndex: 2 }}
-                  data={currencies.map((currency: any) => ({
-                    label: currency.name,
-                    value: currency.ticker,
-                  }))}
-                  placeholder="Select a cryptocurrency"
-                  label="Exchange"
-                  searchable
-                  defaultValue={"Bitcoin"}
-                  classNames={classes}
-                  value={defaultStrategy.from}
-                  {...form.getInputProps("from")}
-                />
-                <Select
-                  style={{ marginTop: 20, zIndex: 2 }}
-                  data={currencies.map((currency: any) => ({
-                    label: currency.name,
-                    value: currency.ticker,
-                  }))}
-                  placeholder="Select a cryptocurrency"
-                  label="For"
-                  searchable
-                  classNames={classes}
-                  {...form.getInputProps("to")}
-                />
-              </Group>
               <Card shadow="sm" p="lg" radius="md" withBorder>
                 <Badge mb={"lg"}>Exchange Now</Badge>
                 <TextInput
@@ -202,6 +174,34 @@ const Exchange: NextPage = () => {
                   classNames={classes}
                   value={exchangeRate}
                 />
+                <Group position="apart">
+                  <Select
+                    style={{ marginTop: 20, zIndex: 2 }}
+                    data={currencies.map((currency: any) => ({
+                      label: currency.name,
+                      value: currency.ticker,
+                    }))}
+                    placeholder="Select a cryptocurrency"
+                    label="Exchange"
+                    searchable
+                    defaultValue={"Bitcoin"}
+                    classNames={classes}
+                    value={defaultStrategy.from}
+                    {...form.getInputProps("from")}
+                  />
+                  <Select
+                    style={{ marginTop: 20, zIndex: 2 }}
+                    data={currencies.map((currency: any) => ({
+                      label: currency.name,
+                      value: currency.ticker,
+                    }))}
+                    placeholder="Select a cryptocurrency"
+                    label="For"
+                    searchable
+                    classNames={classes}
+                    {...form.getInputProps("to")}
+                  />
+                </Group>
                 <Divider mt={"sm"} size={"sm"} />
                 <Group mt={"md"}>
                   <IconAlertCircle />
