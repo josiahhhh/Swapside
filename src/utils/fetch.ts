@@ -1,13 +1,13 @@
 import axios from "axios";
 
+const BASE_URL = "https://swap-eight-omega.vercel.app";
+
 export default async function getCurrencies() {
-  return await axios.get(`https://swap-eight-omega.vercel.app/api/currencies`);
+  return await axios.get(`${BASE_URL}/api/currencies`);
 }
 
 export async function getExchangeRates(currency: string) {
-  return await axios.get(
-    `https://swap-eight-omega.vercel.app/api/rates?currency=${currency}`
-  );
+  return await axios.get(`${BASE_URL}/api/rates?currency=${currency}`);
 }
 
 export async function compareExchangeRates(
@@ -16,10 +16,10 @@ export async function compareExchangeRates(
   to: string
 ) {
   return await axios.get(
-    `https://swap-eight-omega.vercel.app/api/compareAmount?amount=${amount}&from=${from}&to=${to}`
+    `${BASE_URL}/api/compareAmount?amount=${amount}&from=${from}&to=${to}`
   );
 }
 
 export function createTransaction(data: any) {
-  return axios.post(`https://swap-eight-omega.vercel.app/api/create`, data);
+  return axios.post(`${BASE_URL}/api/create`, data);
 }

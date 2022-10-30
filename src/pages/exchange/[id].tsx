@@ -1,7 +1,8 @@
 import Layout from "@/components/Global/Layout";
 import { Meta } from "@/components/Global/Meta";
 import { Badge, Card, Container, createStyles, Text } from "@mantine/core";
-import axios from "axios";
+import { fetchOrder } from "app/slice/cryptoSlice";
+import { wrapper } from "app/store";
 import {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -90,23 +91,18 @@ const Id: NextPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.params?.id;
-  const { data } = await axios.get(
-    `https://swap-eight-omega.vercel.app/api/order?id=${id}`
-  );
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async (context) => {
+    const { id } = context.query;
 
-  if (!data) {
+    const data = await store.dispatch(fetchOrder(id as string));
+    const returnData = data.payload;
+
     return {
-      props: {},
+      props: {
+        data: returnData ? returnData : [],
+      },
     };
-  }
-
-  return {
-    props: {
-      data: data ? data : [],
-    },
-  };
-};
+  });
 
 export default Id;

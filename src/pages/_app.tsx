@@ -4,17 +4,20 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import { useColorScheme, useHotkeys, useLocalStorage } from "@mantine/hooks";
+import { wrapper } from "app/store";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
-import { FC } from "react";
-import SEO from "../../next-seo.config";
-
 import Router from "next/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import * as React from "react";
+import { FC } from "react";
+import { Provider } from "react-redux";
+import SEO from "../../next-seo.config";
 
-const MyApp: FC<AppProps> = ({ Component, pageProps }: AppProps) => {
+const MyApp: FC<AppProps> = ({ Component, pageProps, ...rest }: AppProps) => {
+  const { store } = wrapper.useWrappedStore(rest);
+
   const preferredColorScheme = useColorScheme();
 
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -55,7 +58,9 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }: AppProps) => {
         theme={{ colorScheme, fontFamily: "Rubik, sans-serif" }}
       >
         <DefaultSeo {...SEO} />
-        <Component {...pageProps} />
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
       </MantineProvider>
     </ColorSchemeProvider>
   );
