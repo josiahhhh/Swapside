@@ -1,8 +1,6 @@
-// @ts-ignore
-
 import {
+  ActionIcon,
   Burger,
-  Button,
   Container,
   createStyles,
   Group,
@@ -13,15 +11,15 @@ import {
   Transition,
 } from "@mantine/core";
 
+import { useMantineColorScheme } from "@mantine/core";
 import { useDisclosure, useScrollLock } from "@mantine/hooks";
 import { NextLink } from "@mantine/next";
-import { signIn, useSession } from "next-auth/react";
+import { IconMoonStars, IconSun } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { FaChevronDown } from "react-icons/fa";
 
 const useStyles = createStyles((theme) => ({
   bgBlur: {
-    background: theme.fn.rgba(theme.colors.dark[7], 0.7),
     backdropFilter: "blur(8px)",
   },
 
@@ -30,6 +28,13 @@ const useStyles = createStyles((theme) => ({
     position: "sticky",
     top: 0,
     zIndex: 100,
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
+    borderTop: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
+    }`,
   },
 
   inner: {
@@ -103,7 +108,8 @@ const Navbar = ({ links }: NavProps) => {
   const [opened, { toggle }] = useDisclosure(false);
   const [scrollLocked, setScrollLocked] = useScrollLock();
   const { classes, cx } = useStyles();
-  const { data: session } = useSession();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const light = colorScheme === "light";
 
   const items = links.map((link) => {
     const menuItems = link.dropdown?.map((item) => (
@@ -163,7 +169,7 @@ const Navbar = ({ links }: NavProps) => {
               }}
             />
             <Text component={NextLink} href="/" size={"xl"} weight={"bold"}>
-              CavemanAlerts
+              Swapside
             </Text>
           </Group>
 
@@ -171,9 +177,16 @@ const Navbar = ({ links }: NavProps) => {
             {items}
           </Group>
 
-          <Button onClick={() => signIn("patreon")} color={"blue"} size={"sm"}>
-            Login
-          </Button>
+          <Group>
+            <ActionIcon
+              variant="outline"
+              color={light ? "yellow" : "blue"}
+              onClick={() => toggleColorScheme()}
+              title="Toggle color scheme"
+            >
+              {light ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+            </ActionIcon>
+          </Group>
         </Container>
       </Header>
 

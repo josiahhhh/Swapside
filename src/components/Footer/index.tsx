@@ -1,68 +1,86 @@
-import { ActionIcon, Container, createStyles, Group, Image, Text } from '@mantine/core';
-import { FaDiscord, FaInstagram, FaTwitter } from 'react-icons/fa';
+import {
+  ActionIcon,
+  Container,
+  createStyles,
+  Group,
+  Text,
+  Title,
+} from "@mantine/core";
+import {
+  IconBrandInstagram,
+  IconBrandTelegram,
+  IconBrandTwitter,
+} from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
   footer: {
+    marginTop: 20,
     paddingTop: theme.spacing.xl * 2,
     paddingBottom: theme.spacing.xl * 2,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
     borderTop: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`
+      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
+    }`,
   },
 
   logo: {
     maxWidth: 200,
 
-    [theme.fn.smallerThan('sm')]: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }
+    [theme.fn.smallerThan("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    },
   },
 
   description: {
     marginTop: 5,
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan("sm")]: {
       marginTop: theme.spacing.xs,
-      textAlign: 'center'
-    }
+      textAlign: "center",
+    },
   },
 
   inner: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
 
-    [theme.fn.smallerThan('sm')]: {
-      flexDirection: 'column',
-      alignItems: 'center'
-    }
+    [theme.fn.smallerThan("sm")]: {
+      flexDirection: "column",
+      alignItems: "center",
+    },
   },
 
   groups: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
 
-    [theme.fn.smallerThan('sm')]: {
-      display: 'none'
-    }
+    [theme.fn.smallerThan("sm")]: {
+      display: "none",
+    },
   },
 
   wrapper: {
-    width: 160
+    width: 160,
   },
 
   link: {
-    display: 'block',
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
+    display: "block",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[1]
+        : theme.colors.gray[6],
     fontSize: theme.fontSizes.sm,
     paddingTop: 3,
     paddingBottom: 3,
 
-    '&:hover': {
-      textDecoration: 'underline'
-    }
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
 
   title: {
@@ -70,30 +88,30 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 700,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     marginBottom: theme.spacing.xs / 2,
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
   },
 
   afterFooter: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: theme.spacing.xl,
     paddingTop: theme.spacing.xl,
     paddingBottom: theme.spacing.xl,
     borderTop: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
     }`,
 
-    [theme.fn.smallerThan('sm')]: {
-      flexDirection: 'column'
-    }
+    [theme.fn.smallerThan("sm")]: {
+      flexDirection: "column",
+    },
   },
 
   social: {
-    [theme.fn.smallerThan('sm')]: {
-      marginTop: theme.spacing.xs
-    }
-  }
+    [theme.fn.smallerThan("sm")]: {
+      marginTop: theme.spacing.xs,
+    },
+  },
 }));
 
 interface FooterLinksProps {
@@ -108,12 +126,13 @@ export function FooterLinks({ data }: FooterLinksProps) {
 
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
-      <Text<'a'>
+      <Text<"a">
         key={index}
         className={classes.link}
         component="a"
         href={link.link}
-        onClick={(event) => event.preventDefault()}>
+        onClick={(event) => event.preventDefault()}
+      >
         {link.label}
       </Text>
     ));
@@ -130,26 +149,28 @@ export function FooterLinks({ data }: FooterLinksProps) {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-          <Image width={50} height={50} radius="sm" src="/logo.png" alt="Logo" />
+          <Title size={30}>Swapside</Title>
           <Text size="xs" color="dimmed" className={classes.description}>
-            Our goal is to help fellow caveman around the world with their finance and steer in this
-            modern world.
+            Exchange cryptocurrency with ease! No registration required. Built
+            by the community.
           </Text>
         </div>
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>
-        <Text size="sm">&copy; {new Date().getFullYear()} CavemanAlerts. All rights reserved.</Text>
+        <Text color="dimmed" size="sm">
+          &copy; {new Date().getFullYear()} swapside.com. All rights reserved.
+        </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
           <ActionIcon size="lg">
-            <FaTwitter size={18} />
+            <IconBrandTwitter size={18} stroke={1.5} />
           </ActionIcon>
           <ActionIcon size="lg">
-            <FaDiscord size={18} />
+            <IconBrandTelegram size={18} stroke={1.5} />
           </ActionIcon>
           <ActionIcon size="lg">
-            <FaInstagram size={18} />
+            <IconBrandInstagram size={18} stroke={1.5} />
           </ActionIcon>
         </Group>
       </Container>

@@ -6,13 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { to, from } = req.query;
-
-    const { data } = await axios.get(
-      `https://financialmodelingprep.com/api/v3/earning_calendar?from=${
-        from as string
-      }0&to=${to as string}&apikey=64b9cb7bc28bb75e48c2508d805275c9`
-    );
+    const { data } = await axios.get(`https://changenow.io/api/v1/currencies`);
 
     return res.status(200).send(data);
   } catch (error) {

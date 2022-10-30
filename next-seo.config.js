@@ -1,15 +1,15 @@
 export default {
-  title: 'Home',
-  titleTemplate: '%s | Caveman',
+  title: "Home",
+  titleTemplate: "%s | Swapside",
   openGraph: {
-    type: 'website',
-    locale: 'en_IE',
-    url: 'https://www.cavemanalerts.com/',
-    site_name: 'CavemanAlerts'
+    type: "website",
+    locale: "en_IE",
+    url: "https://www.swapside.com/",
+    site_name: "Swapside",
   },
   twitter: {
-    handle: '@cavemanalerts',
-    site: '@cavemanalerts',
-    cardType: 'summary_large_image'
-  }
+    handle: "@swapside",
+    site: "@swapside",
+    cardType: "summary_large_image",
+  },
 };

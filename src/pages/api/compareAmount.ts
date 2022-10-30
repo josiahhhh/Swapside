@@ -6,8 +6,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    const { amount, from, to } = req.query;
+
     const { data } = await axios.get(
-      `https://financialmodelingprep.com/api/v3/income-statement/AAPL?period=quarter&limit=20&apikey=64b9cb7bc28bb75e48c2508d805275c9`
+      `https://api.changenow.io/v1/exchange-amount/${amount}/${from}_${to}?api_key=33a8d0ef1239b54dca56b0873a5a4bb1b983813570f4e30801c5b52cab409b3e`
     );
 
     return res.status(200).send(data);
