@@ -20,12 +20,12 @@ export const data = [
     title: "Important",
     links: [
       {
-        label: "Terms of Service",
-        link: "/terms",
+        label: "Histoy Lookup",
+        link: "/history",
       },
       {
-        label: "Follow our Twitter",
-        link: "/twitter",
+        label: "Join our Telegram",
+        link: "/telegram",
       },
       {
         label: "Exchange",
