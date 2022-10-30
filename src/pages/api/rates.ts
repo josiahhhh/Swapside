@@ -9,7 +9,7 @@ export default async function handler(
     const { currency } = req.query;
 
     const { data } = await axios.get(
-      `thtps://api.coinbase.com/v2/exchange-rates?currency=${currency}`
+      `https://api.coinbase.com/v2/exchange-rates?currency=${currency}`
     );
 
     return res.status(200).send(data);

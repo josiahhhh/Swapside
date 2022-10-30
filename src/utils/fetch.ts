@@ -6,7 +6,7 @@ export default async function getCurrencies() {
 
 export async function getExchangeRates(currency: string) {
   return await axios.get(
-    `https:/api.coinbase.com/v2/exchange-rates?currency=${currency}`
+    `https://swap-eight-omega.vercel.app/api/rates?currency=${currency}`
   );
 }
 
