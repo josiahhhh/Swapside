@@ -92,7 +92,9 @@ const Id: NextPage = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
-  const { data } = await axios.get(`http://localhost:3000/api/order?id=${id}`);
+  const { data } = await axios.get(
+    `https://swap-eight-omega.vercel.app/api/order?id=${id}`
+  );
 
   if (!data) {
     return {
