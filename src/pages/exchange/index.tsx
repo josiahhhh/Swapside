@@ -20,6 +20,7 @@ import {
 import { useForm } from "@mantine/form";
 import { IconAlertCircle } from "@tabler/icons";
 import { NextPage } from "next";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 interface Strategy {
@@ -84,6 +85,7 @@ const Exchange: NextPage = () => {
   const [currencies, setCurrencies] = useState([]);
   const [rate, setRate] = useState();
   const [exchangeRate, setExchangeRate] = useState();
+  const router = useRouter();
 
   const form = useForm({
     initialValues: {
@@ -143,7 +145,11 @@ const Exchange: NextPage = () => {
               onSubmit={form.onSubmit((values) => {
                 createTransaction(values)
                   .then((res) => {
-                    console.log(res.data);
+                    if (res.status === 200) {
+                      router.push(`/exchange/${res.data.id}`);
+                    } else {
+                      setError("Something went wrong");
+                    }
                   })
                   .catch((err) => {
                     console.log(err);
