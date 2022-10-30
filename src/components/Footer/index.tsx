@@ -6,6 +6,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { NextLink } from "@mantine/next";
 import {
   IconBrandInstagram,
   IconBrandTelegram,
@@ -126,10 +127,10 @@ export function FooterLinks({ data }: FooterLinksProps) {
 
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
-      <Text<"a">
+      <Text
         key={index}
         className={classes.link}
-        component="a"
+        component={NextLink}
         href={link.link}
         onClick={(event) => event.preventDefault()}
       >

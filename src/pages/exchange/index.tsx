@@ -100,7 +100,7 @@ const Exchange: NextPage = () => {
     const fetchData = async () => {
       getCurrencies()
         .then((res) => {
-          if (res.data) {
+          if (res.status === 200) {
             setCurrencies(res.data);
           } else {
             setError("No currencies found");
@@ -111,7 +111,7 @@ const Exchange: NextPage = () => {
         });
 
       getExchangeRates(form.values.to).then((res) => {
-        if (res.data) {
+        if (res.status === 200) {
           setRate(res.data.data.rates["USD"]);
         } else {
           setError("No exchange rates found");
@@ -124,7 +124,7 @@ const Exchange: NextPage = () => {
       form.values.from,
       form.values.to
     ).then((res) => {
-      if (res.data) {
+      if (res.status === 200) {
         setExchangeRate(res.data.estimatedAmount);
       } else {
         setError("No exchange rates found");

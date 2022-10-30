@@ -15,6 +15,6 @@ export default async function handler(
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "API fetching failed" });
+    return res.status(201).json({ msg: "API fetching failed" });
   }
 }
