@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL: string = "https://swap-eight-omega.vercel.app/api";
+const BASE_URL: string = "https://swap-drago26.vercel.app/api";
 
 interface State {
   currencies: string[];

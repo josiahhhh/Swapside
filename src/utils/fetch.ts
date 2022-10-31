@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://swap-eight-omega.vercel.app";
+const BASE_URL = "https://swap-drago26.vercel.app";
 
 export default async function getCurrencies() {
   return await axios.get(`${BASE_URL}/api/currencies`);
