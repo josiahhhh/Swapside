@@ -61,31 +61,31 @@ const Id: NextPage = ({
       <Meta title="Exchange" />
 
       <Layout>
-        <div className={classes.wrapper}>
-          <Container className={classes.inner}>
-            <Card withBorder radius="md" p="md" className={classes.card}>
-              <Card.Section className={classes.section} py={"lg"} mt="md">
-                <Badge mb={"md"}>{data.status}</Badge>
-                <Text sx={{ fontSize: 24 }}>
-                  Send {data.expectedSendAmount}{" "}
-                  {data.fromCurrency.toUpperCase()}
-                </Text>
-                <Text size="lg" weight={500}>
-                  To: {data.payinAddress}
-                </Text>
-              </Card.Section>
-              <Card.Section className={classes.section} py={"lg"} mt="md">
-                <Text sx={{ fontSize: 24 }}>
-                  You get: {data.expectedReceiveAmount}{" "}
-                  {data.toCurrency.toUpperCase()}
-                </Text>
-                <Text size="lg" weight={500}>
-                  To: {data.payoutAddress}
-                </Text>
-              </Card.Section>
-            </Card>
-          </Container>
-        </div>
+        {data ? (
+          <div className={classes.wrapper}>
+            <Container className={classes.inner}>
+              <Card withBorder radius="md" p="md" className={classes.card}>
+                <Card.Section className={classes.section} py={"lg"} mt="md">
+                  <Badge mb={"md"}>{data.status}</Badge>
+                  <Text sx={{ fontSize: 24 }}>
+                    Send {data.expectedSendAmount} {data.fromCurrency}
+                  </Text>
+                  <Text size="lg" weight={500}>
+                    To: {data.payinAddress}
+                  </Text>
+                </Card.Section>
+                <Card.Section className={classes.section} py={"lg"} mt="md">
+                  <Text sx={{ fontSize: 24 }}>
+                    You get: {data.expectedReceiveAmount} {data.toCurrency}
+                  </Text>
+                  <Text size="lg" weight={500}>
+                    To: {data.payoutAddress}
+                  </Text>
+                </Card.Section>
+              </Card>
+            </Container>
+          </div>
+        ) : null}
       </Layout>
     </>
   );
@@ -98,9 +98,11 @@ export const getServerSideProps: GetServerSideProps =
     const data = await store.dispatch(fetchOrder(id as string));
     const returnData = data.payload;
 
+    console.log(returnData);
+
     return {
       props: {
-        data: returnData ? returnData : [],
+        data: returnData ? returnData : null,
       },
     };
   });

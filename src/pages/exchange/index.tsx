@@ -2,7 +2,6 @@ import Layout from "@/components/Global/Layout";
 import { Meta } from "@/components/Global/Meta";
 import getCurrencies, {
   compareExchangeRates,
-  createTransaction,
   getExchangeRates,
 } from "@/utils/fetch";
 import {
@@ -117,22 +116,26 @@ const Exchange: NextPage = () => {
           setError("No exchange rates found");
         }
       });
-    };
 
-    compareExchangeRates(
-      form.values.amount,
-      form.values.from,
-      form.values.to
-    ).then((res) => {
-      if (res.status === 200) {
-        setExchangeRate(res.data.estimatedAmount);
-      } else {
-        setError("No exchange rates found");
-      }
-    });
+      compareExchangeRates(
+        form.values.amount,
+        form.values.from,
+        form.values.to
+      ).then((res) => {
+        if (res.status === 200) {
+          setExchangeRate(res.data.estimatedAmount);
+        } else {
+          setError("No exchange rates found");
+        }
+      });
+    };
 
     fetchData();
   }, []);
+
+  const handleChange = (e: any) => {
+    console.log(e.target.value);
+  };
 
   return (
     <>
@@ -141,22 +144,7 @@ const Exchange: NextPage = () => {
       <Layout>
         <div className={classes.wrapper}>
           <Container className={classes.inner}>
-            <form
-              onSubmit={form.onSubmit((values) => {
-                createTransaction(values)
-                  .then((res) => {
-                    if (res.status === 200) {
-                      router.push(`/exchange/${res.data.id}`);
-                    } else {
-                      setError("Something went wrong");
-                    }
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                    setError(err.message);
-                  });
-              })}
-            >
+            <form onSubmit={handleChange}>
               <Card shadow="sm" p="lg" radius="md" withBorder>
                 <Badge mb={"lg"}>Exchange Now</Badge>
                 <TextInput
@@ -165,8 +153,9 @@ const Exchange: NextPage = () => {
                   size={"md"}
                   classNames={classes}
                   rightSectionWidth={42}
+                  value={form.values.amount}
+                  onChange={handleChange}
                   {...form.getInputProps("amount")}
-                  required
                 />
                 <Divider mt={"sm"} size={"sm"} />
                 <Text my={"sm"} color={"dimmed"}>

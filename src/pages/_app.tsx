@@ -4,6 +4,7 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import { useColorScheme, useHotkeys, useLocalStorage } from "@mantine/hooks";
+import { NotificationsProvider } from "@mantine/notifications";
 import { wrapper } from "app/store";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
@@ -57,10 +58,12 @@ const MyApp: FC<AppProps> = ({ Component, pageProps, ...rest }: AppProps) => {
         withNormalizeCSS
         theme={{ colorScheme, fontFamily: "Rubik, sans-serif" }}
       >
-        <DefaultSeo {...SEO} />
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
+        <NotificationsProvider>
+          <DefaultSeo {...SEO} />
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
+        </NotificationsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   );
