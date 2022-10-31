@@ -94,11 +94,8 @@ const Id: NextPage = ({
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context) => {
     const { id } = context.query;
-
     const data = await store.dispatch(fetchOrder(id as string));
     const returnData = data.payload;
-
-    console.log(returnData);
 
     return {
       props: {

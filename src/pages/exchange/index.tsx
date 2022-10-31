@@ -2,6 +2,7 @@ import Layout from "@/components/Global/Layout";
 import { Meta } from "@/components/Global/Meta";
 import getCurrencies, {
   compareExchangeRates,
+  createTransaction,
   getExchangeRates,
 } from "@/utils/fetch";
 import {
@@ -131,11 +132,7 @@ const Exchange: NextPage = () => {
     };
 
     fetchData();
-  }, []);
-
-  const handleChange = (e: any) => {
-    console.log(e.target.value);
-  };
+  }, [form.values]);
 
   return (
     <>
@@ -144,7 +141,22 @@ const Exchange: NextPage = () => {
       <Layout>
         <div className={classes.wrapper}>
           <Container className={classes.inner}>
-            <form onSubmit={handleChange}>
+            <form
+              onSubmit={form.onSubmit((values) => {
+                createTransaction(values)
+                  .then((res) => {
+                    if (res.status === 200) {
+                      router.push(`/exchange/${res.data.id}`);
+                    } else {
+                      setError("Something went wrong");
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    setError(err.message);
+                  });
+              })}
+            >
               <Card shadow="sm" p="lg" radius="md" withBorder>
                 <Badge mb={"lg"}>Exchange Now</Badge>
                 <TextInput
@@ -154,7 +166,6 @@ const Exchange: NextPage = () => {
                   classNames={classes}
                   rightSectionWidth={42}
                   value={form.values.amount}
-                  onChange={handleChange}
                   {...form.getInputProps("amount")}
                 />
                 <Divider mt={"sm"} size={"sm"} />
@@ -212,13 +223,12 @@ const Exchange: NextPage = () => {
                   {...form.getInputProps("address")}
                 />
                 <Button
-                  disabled={error ? true : false}
                   color={`${error ? "red" : "green"}`}
                   mt={"md"}
                   fullWidth
                   type="submit"
                 >
-                  {error ? "Improper Address" : "Exchange"}
+                  {error ? error : "Exchange"}
                 </Button>
               </Card>
             </form>
